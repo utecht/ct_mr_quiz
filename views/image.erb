@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>DICOM Modality Quiz</title>
+    <script>
+      var modality = "<%= @modality %>";
+      var next = false;
+      function answer(b){
+        if(next){
+          location.reload();
+        }
+        var color = modality == b ? 'green' : 'red';
+        document.getElementById(modality).style.backgroundColor = color;
+        document.getElementById('next').style.display = 'inline';
+        next = true;
+      }
+    </script>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      img {
+        width: 256px;
+        height: 256px;
+      }
+      button {
+        width: 5em;
+        height: 5em;
+      }
+      #next {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>DICOM Modality Quiz</h1>
+      <%= @image_tag %>
+      <div style="display:flex;margin-top:1em">
+        <button onClick="answer('CT')" id="CT">CT</button>
+        <button onClick="answer('MR')" id="MR">MR</button>
+        <button onClick="answer('PT')" id="PT">PT</button>
+      </div>
+      <small id="next">Click again to advance</small>
+    </div>
+  </body>
+</html>
