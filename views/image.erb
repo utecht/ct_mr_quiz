@@ -9,9 +9,9 @@
           location.reload();
         }
         var color = modality == b ? 'green' : 'red';
-        document.getElementById(modality).style.backgroundColor = color;
-        document.getElementById('next').style.display = 'inline';
         next = true;
+        document.getElementById('next').style.display = 'inline';
+        document.getElementById(modality).style.backgroundColor = color;
       }
     </script>
     <style>
@@ -42,7 +42,7 @@
         <button onClick="answer('MR')" id="MR">MR</button>
         <button onClick="answer('PT')" id="PT">PT</button>
       </div>
-      <small id="next">Click again to advance</small>
+      <small id="next">Click again to advance - <%= @modality %></small>
     </div>
   </body>
 </html>

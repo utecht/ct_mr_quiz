@@ -10,8 +10,16 @@ abort("Pass path to dicom images as argument") unless ARGV.count == 1
 dicom_dir = ARGV[0]
 dicom_dir << '/' unless dicom_dir[-1] == '/'
 
+def random_crawl(cur_dir)
+  f = Dir["#{cur_dir}*"].sample
+  puts f
+  return f unless File.directory?(f)
+  f << '/'
+  random_crawl(f)
+end
+
 get '/' do
-  dcm = DObject.read(Dir["#{dicom_dir}**/*"].sample)
+  dcm = DObject.read(random_crawl(dicom_dir))
   redirect '/' unless dcm.read?
   @modality = dcm.modality.value
   image_blob = dcm.image.normalize.to_blob { self.format = "jpeg" }
